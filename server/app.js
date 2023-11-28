@@ -34,6 +34,9 @@ app.use('/doctor', express.static('../client/doctor'));
 //serve static files from the root directory
 app.use('/pharma', express.static('../client/pharma'));
 
+//server static files from the root directory
+app.use('/', express.static('../client/launch'));
+
 // create a post request to store the data in the database received from doctor
 app.post('/doctor', async (request, response) => {
     try {
@@ -120,4 +123,6 @@ app.listen(port, () => {
     console.log(`Doctor: http://${host}:${port}/doctor`);
     // url for the pharma
     console.log(`Pharma: http://${host}:${port}/pharma`);
+    // url for the launch page
+    console.log(`Launch: http://${host}:${port}/`);
 });
