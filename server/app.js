@@ -112,7 +112,7 @@ app.get('/user/:name', async (request, response) => {
 });
 
 // start the server
-app.listen(port, host, () => {
+app.listen(port, () => {
     console.log(`Server running at http://${host}:${port}/`);
     // url for the user
     console.log(`User: http://${host}:${port}/user`);
