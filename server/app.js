@@ -76,6 +76,41 @@ app.get('/pharama', async (request, response) => {
     }
 });
 
+app.post('/pharma', async (request, response) => {
+    try {
+        // update the status of the medicine
+        console.log("Received from pharma", request.body);
+        // find the data with the given patient name and file id and update the status
+        const result = await model.updateOne(
+            { patientName: request.body.patientName, fileId: request.body.fileId},
+            { $set: { prep_status: request.body.prep_status } },
+            { new: true }
+        );
+        console.log(result);
+
+        // send the updated data to the pharma
+        const result1 = await model.find();
+    }
+    catch (error) {
+        console.log(error);
+        response.status(500).send(error);
+    }
+});
+
+app.get('/user/:name', async (request, response) => {
+    try {
+        // only send the data with the given patient name
+        patientName = request.params.name;
+        const result = await model.find({ patientName: patientName });
+        response.send(result);
+        console.log(result);
+
+    } catch (error) {
+        console.log(error);
+        response.status(500).send(error);
+    }
+});
+
 // start the server
 app.listen(port, host, () => {
     console.log(`Server running at http://${host}:${port}/`);

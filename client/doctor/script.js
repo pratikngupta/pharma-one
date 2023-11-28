@@ -5,7 +5,7 @@ $(document).ready(function() {
         var patientName = $('#patientName').val();
         var fileId = $('#fileId').val();
         var storeName = $('#storeName').val();
-        var doctorId = $('#doctorId').val();
+        var doctorName = $('#doctorName').val();
         var doctorSign = $('#doctorSign').val();
         var medicineName = $('#medicineName').val();
         var dose = $('#dose').val();
@@ -18,7 +18,7 @@ $(document).ready(function() {
             patientName: patientName,
             fileId: fileId,
             storeName: storeName,
-            doctorId: doctorId,
+            doctorName: doctorName,
             doctorSign: doctorSign,
             medicineName: medicineName,
             dose: dose,

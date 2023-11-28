@@ -6,7 +6,7 @@ function createPrescriptionCard(prescription) {
                     <h5 class="card-title">Patient Name: ${prescription.patientName}</h5>
                     <h5 class="card-title">File ID: ${prescription.fileId}</h5>
                     <h5 class="card-title">Store Name: ${prescription.storeName}</h5>
-                    <h5 class="card-title">Doctor ID: ${prescription.doctorId}</h5>
+                    <h5 class="card-title">Doctor Name: ${prescription.doctorName}</h5>
                     <h5 class="card-title">Doctor Sign: ${prescription.doctorSign}</h5>
                     <h5 class="card-title">Medicine Name: ${prescription.medicineName}</h5>
                     <h5 class="card-title">Dose: ${prescription.dose}</h5>
@@ -16,10 +16,14 @@ function createPrescriptionCard(prescription) {
                     <h5 class="card-title">Comments: ${prescription.comments}</h5>
                     <div class="form-group">
                         <label for="status">Status:</label>
-                        <select class="form-control" id="status" onchange="updateStatus(this.value, '${prescription.fileId}')">
+                        <select class="form-control" id="status" onchange="updateStatus(this.value, '${prescription.fileId}', '${prescription.patientName}')">
                             <option ${prescription.status === 'Unfulfilled' ? 'selected' : ''}>Unfulfilled</option>
                             <option ${prescription.status === 'Fulfilled' ? 'selected' : ''}>Fulfilled</option>
+                            <option ${prescription.status === 'Working on it' ? 'selected' : ''}>working on it</option>
+                            <option ${prescription.status === 'Ready for pickup' ? 'selected' : ''}>Ready for pickup</option>
+                            <option ${prescription.status === 'Cancelled' ? 'selected' : ''}>Cancelled</option>
                         </select>
+                        <div id="updateBox" class="mt-2"></div>
                     </div>
                 </div>
             </div>
@@ -27,9 +31,27 @@ function createPrescriptionCard(prescription) {
     `;
 }
 
-function updateStatus(status, fileId) {
-    console.log(`Status for file ${fileId} updated to ${status}`);
-    // Here you can add the code to update the status in your database
+function updateStatus(status, fileId, patientName) {
+    console.log(`Status for file ${fileId} updated to ${status} by pharma for id ${fileId}`);
+    var data = {
+        //send _id of the document
+        fileId: fileId,
+        patientName: patientName,
+        prep_status: status
+    };
+
+    $.ajax({
+        url: '/pharma', // Replace with your API URL
+        type: 'POST',
+        data: JSON.stringify(data),
+        contentType: 'application/json; charset=utf-8',
+        success: function(response) {
+            $('#updateBox').html('Data submitted successfully').show();
+        },
+        error: function(error) {
+            $('#updateBox').html('Error occurred').show();
+        }
+    });
 }
 
 function addPrescription(prescription) {
@@ -72,14 +94,15 @@ async function callApiEvery30Seconds() {
                 data.forEach(element => {
                     if (element.prep_status === "medicine sent to pharmacy") {
                         var status = 'Unfulfilled';
-                    } else {
-                        var status = 'Fulfilled';
+                    } 
+                    else {
+                        var status = element.prep_status;
                     }
                     addPrescription({
                         patientName: element.patientName,
                         fileId: element.fileId,
                         storeName: element.storeName,
-                        doctorId: element.doctorId,
+                        doctorName: element.doctorName,
                         doctorSign: element.doctorSign,
                         medicineName: element.medicineName,
                         dose: element.dose,
