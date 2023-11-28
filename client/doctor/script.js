@@ -26,7 +26,7 @@ $(document).ready(function() {
             endDate: endDate,
             frequency: frequency,
             comments: comments,
-            prep_status: "medicine sent to pharmacy"
+            prep_status: "Unfulfilled"
         };
 
         $.ajax({

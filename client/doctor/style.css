@@ -1,18 +1,39 @@
-:root {
-    --light-background: #f8f9fa;
-    --light-text: #000;
-    --dark-background: #343a40;
-    --dark-text: #fff;
-}
-
 body.light {
-    background-color: var(--light-background);
-    color: var(--light-text);
+    background-color: #ECEFF4;
+    color: #2E3440;
 }
 
 body.dark {
-    background-color: var(--dark-background);
-    color: var(--dark-text);
+    background-color: #2E3440;
+    color: #D8DEE9;
+}
+
+body.dark .navbar-light {
+    background-color: #3B4252;
+}
+
+body.dark .card {
+    background-color: #3B4252;
+    border-color: #4C566A;
+}
+
+body.dark .btn-secondary {
+    background-color: #88C0D0;
+    border-color: #88C0D0;
+}
+
+body.light .navbar-light {
+    background-color: #D8DEE9;
+}
+
+body.light .card {
+    background-color: #ECEFF4;
+    border-color: #D8DEE9;
+}
+
+body.light .btn-secondary {
+    background-color: #2E3440;
+    border-color: #2E3440;
 }
 
 .container {

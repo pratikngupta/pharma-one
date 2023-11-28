@@ -21,6 +21,10 @@ function addCard(details) {
     document.getElementById('prescriptions').innerHTML += card;
 }
 
+document.getElementById('themeSwitcher').addEventListener('click', function() {
+    document.body.classList.toggle('dark');
+});
+
 document.querySelector('.btn-primary').addEventListener('click', function(event) {
     event.preventDefault();
     console.log('Button was clicked!');
@@ -29,22 +33,49 @@ document.querySelector('.btn-primary').addEventListener('click', function(event)
     console.log('Patient name:', patientName);
     //remove previous prescriptions from card
     document.getElementById('prescriptions').innerHTML = '';         
+
     getPrescriptions(patientName);
+
+    // Cancel setInterval if it is already running
+    clearInterval(interval);
+
+    // Call the function every 10 seconds
+    setInterval(function() {
+        getPrescriptions(patientName);
+    }, 5000);
 });
+
+let previousData = null;
 
 async function getPrescriptions(name) {
     // Call the API to get the prescriptions
     try{
+
+        console.log('Checking for new data... for user: ' + name);
+
         let url = '/user/' + name;
         let response = await fetch(url);
 
         let data = await response.json();
 
-        console.log(data);
+        // Convert the data to a string for comparison
+        let dataString = JSON.stringify(data);
 
-        data.forEach(element => {
-            addCard(element);
-        });
+
+        if (dataString !== previousData) {
+            console.log('Data has changed!');
+            // Clear the prescriptions
+            document.getElementById('prescriptions').innerHTML = '';
+
+            console.log(data);
+
+            data.forEach(element => {
+                addCard(element);
+            });
+
+            // Store the new data for future comparisons
+            previousData = dataString;
+        }
 
     }
     catch(error){

@@ -16,10 +16,10 @@ function createPrescriptionCard(prescription) {
                     <h5 class="card-title">Comments: ${prescription.comments}</h5>
                     <div class="form-group">
                         <label for="status">Status:</label>
-                        <select class="form-control" id="status" onchange="updateStatus(this.value, '${prescription.fileId}', '${prescription.patientName}')">
+                        <select class="form-control" id="status" onchange="updateStatus(this.value, '${prescription.fileId}', '${prescription}')">
                             <option ${prescription.status === 'Unfulfilled' ? 'selected' : ''}>Unfulfilled</option>
                             <option ${prescription.status === 'Fulfilled' ? 'selected' : ''}>Fulfilled</option>
-                            <option ${prescription.status === 'Working on it' ? 'selected' : ''}>working on it</option>
+                            <option ${prescription.status === 'Working on it' ? 'selected' : ''}>Working on it</option>
                             <option ${prescription.status === 'Ready for pickup' ? 'selected' : ''}>Ready for pickup</option>
                             <option ${prescription.status === 'Cancelled' ? 'selected' : ''}>Cancelled</option>
                         </select>
@@ -31,12 +31,12 @@ function createPrescriptionCard(prescription) {
     `;
 }
 
-function updateStatus(status, fileId, patientName) {
+function updateStatus(status, fileId, prescription) {
     console.log(`Status for file ${fileId} updated to ${status} by pharma for id ${fileId}`);
     var data = {
         //send _id of the document
         fileId: fileId,
-        patientName: patientName,
+        patientName: prescription.patientName,
         prep_status: status
     };
 
@@ -57,6 +57,7 @@ function updateStatus(status, fileId, patientName) {
 function addPrescription(prescription) {
     var card = createPrescriptionCard(prescription);
     document.getElementById('prescriptions').innerHTML += card;
+    // make sure that dropdown is updated with the correct status for the prescription
 }
 
 document.getElementById('themeSwitcher').addEventListener('click', function() {
@@ -92,12 +93,6 @@ async function callApiEvery30Seconds() {
                 console.log('Response changed...');   
                 document.getElementById('prescriptions').innerHTML = '';         
                 data.forEach(element => {
-                    if (element.prep_status === "medicine sent to pharmacy") {
-                        var status = 'Unfulfilled';
-                    } 
-                    else {
-                        var status = element.prep_status;
-                    }
                     addPrescription({
                         patientName: element.patientName,
                         fileId: element.fileId,
@@ -110,7 +105,7 @@ async function callApiEvery30Seconds() {
                         endDate: element.endDate,
                         frequency: element.frequency,
                         comments: element.comments,
-                        status: status
+                        status: element.prep_status
                     })
                     console.log(element);
                 });

@@ -1,20 +1,49 @@
-/* Add your CSS styles here */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+body.light {
+    background-color: #ECEFF4;
+    color: #2E3440;
 }
 
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+body.dark {
+    background-color: #2E3440;
+    color: #D8DEE9;
 }
 
-h1 {
-    color: #333;
+body.dark .navbar-light {
+    background-color: #3B4252;
 }
 
-p {
-    color: #666;
+body.dark .card {
+    background-color: #3B4252;
+    border-color: #4C566A;
+}
+
+body.dark .btn-secondary {
+    background-color: #88C0D0;
+    border-color: #88C0D0;
+}
+
+body.light .navbar-light {
+    background-color: #D8DEE9;
+}
+
+body.light .card {
+    background-color: #ECEFF4;
+    border-color: #D8DEE9;
+}
+
+body.light .btn-secondary {
+    background-color: #2E3440;
+    border-color: #2E3440;
+}
+
+body.light .card {
+    background-color: #ECEFF4;
+    color: #2E3440;
+    border-color: #D8DEE9;
+}
+
+body.dark .card {
+    background-color: #3B4252;
+    color: #D8DEE9;
+    border-color: #4C566A;
 }
