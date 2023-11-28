@@ -55,9 +55,20 @@ app.post('/doctor', async (request, response) => {
                 prep_status: request.body.prep_status
             }
         )
-        print(data);
+        console.log(data);
         const result = await data.save();
-        print("status", result);
+        console.log("status", result);
+        response.send(result);
+    } catch (error) {
+        console.log(error);
+        response.status(500).send(error);
+    }
+});
+
+app.get('/pharama', async (request, response) => {
+    try {
+        // send all the data to the pharma
+        const result = await model.find();
         response.send(result);
     } catch (error) {
         console.log(error);

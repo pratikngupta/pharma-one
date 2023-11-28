@@ -71,3 +71,5 @@ const medicalRecordSchema = new Schema({
 // Create a Model for storing the data
 const medicalRecord = mongoose.model('medicalRecord', medicalRecordSchema);
 
+module.exports = medicalRecord;
+

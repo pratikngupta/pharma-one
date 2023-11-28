@@ -56,16 +56,27 @@ $(document).ready(function() {
         console.log('Comments:', comments);
 
         //clear the form for next entry
-        $('#patientName').val('');
-        $('#fileId').val('');
-        $('#storeName').val('');
-        $('#doctorId').val('');
-        $('#doctorSign').val('');
-        $('#medicineName').val('');
-        $('#dose').val('');
-        $('#startDate').val('');
-        $('#endDate').val('');
-        $('#frequency').val('');
-        $('#comments').val('');
+        // $('#patientName').val('');
+        // $('#fileId').val('');
+        // $('#storeName').val('');
+        // $('#doctorId').val('');
+        // $('#doctorSign').val('');
+        // $('#medicineName').val('');
+        // $('#dose').val('');
+        // $('#startDate').val('');
+        // $('#endDate').val('');
+        // $('#frequency').val('');
+        // $('#comments').val('');
     });
+});
+
+document.getElementById('themeSwitcher').addEventListener('click', function() {
+    var body = document.body;
+    if (body.classList.contains('light')) {
+        body.classList.remove('light');
+        body.classList.add('dark');
+    } else {
+        body.classList.remove('dark');
+        body.classList.add('light');
+    }
 });
