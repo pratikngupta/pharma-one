@@ -16,7 +16,7 @@ function createPrescriptionCard(prescription) {
                     <h5 class="card-title">Comments: ${prescription.comments}</h5>
                     <div class="form-group">
                         <label for="status">Status:</label>
-                        <select class="form-control" id="status" onchange="updateStatus(this.value, '${prescription.fileId}', '${prescription}')">
+                        <select class="form-control" id="status" onchange="updateStatus(this.value, '${prescription.fileId}', '${prescription.patientName}')">
                             <option ${prescription.status === 'Unfulfilled' ? 'selected' : ''}>Unfulfilled</option>
                             <option ${prescription.status === 'Fulfilled' ? 'selected' : ''}>Fulfilled</option>
                             <option ${prescription.status === 'Working on it' ? 'selected' : ''}>Working on it</option>
@@ -32,12 +32,12 @@ function createPrescriptionCard(prescription) {
     `;
 }
 
-function updateStatus(status, fileId, prescription) {
+function updateStatus(status, fileId, patientName) {
     console.log(`Status for file ${fileId} updated to ${status} by pharma for id ${fileId}`);
     var data = {
         //send _id of the document
         fileId: fileId,
-        patientName: prescription.patientName,
+        patientName: patientName,
         prep_status: status
     };
 

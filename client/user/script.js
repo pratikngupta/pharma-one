@@ -12,6 +12,7 @@ function addCard(details) {
                     <h5 class="card-title">Frequency: ${details.frequency}</h5>
                     <h5 class="card-title">Comments: ${details.comments}</h5>
                     <h5 class="card-title">Status: ${details.prep_status}</h5>
+                    
                 </div>
             </div>
         </div>
