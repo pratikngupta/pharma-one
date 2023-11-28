@@ -21,6 +21,7 @@ function createPrescriptionCard(prescription) {
                             <option ${prescription.status === 'Fulfilled' ? 'selected' : ''}>Fulfilled</option>
                             <option ${prescription.status === 'Working on it' ? 'selected' : ''}>Working on it</option>
                             <option ${prescription.status === 'Ready for pickup' ? 'selected' : ''}>Ready for pickup</option>
+                            <option ${prescription.status === 'Medicine Unavailable' ? 'selected' : ''}>Medicine Unavailable</option>
                             <option ${prescription.status === 'Cancelled' ? 'selected' : ''}>Cancelled</option>
                         </select>
                         <div id="updateBox" class="mt-2"></div>
